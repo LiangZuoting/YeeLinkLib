@@ -1,5 +1,6 @@
 YeeLinkLib
 ==========
+FIRSTLY, ANYONE can use & distribute this software under the GPLv3.
 
 yeelink is a professional platform of the Internet of Things.It provides stable & high-quality service. 
 Unfortunately its development environment is not so good，even no offical sdk. So I made one.
