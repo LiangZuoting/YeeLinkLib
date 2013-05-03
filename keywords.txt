@@ -1,0 +1,31 @@
+#######################################
+# Syntax Coloring Map For YeeLink
+#######################################
+# Class
+#######################################
+
+yl_device	KEYWORD3
+yl_sensor	KEYWORD3
+yl_data_point      		KEYWORD3
+yl_value_data_point	KEYWORD3
+yl_value_sensor			KEYWORD3
+yl_messenger			KEYWORD3
+
+#######################################
+# namespace
+#######################################
+
+yeelink KEYWORD1
+arduino KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+get_id	KEYWORD2
+set_id	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
