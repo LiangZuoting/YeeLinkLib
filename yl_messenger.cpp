@@ -81,7 +81,7 @@ namespace yeelink
 	bool yl_messenger::post_yl_dp(const yl_sensor &sensor, const yl_data_point &dp)
 	{
 		String data = dp.to_string();
-		if (!data.length() == 0)
+		if (data.length() == 0)
 		{
 			return false;
 		}
