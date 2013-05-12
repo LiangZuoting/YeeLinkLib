@@ -13,7 +13,13 @@ namespace yeelink
 
 	bool yl_value_sensor::post_data_point(yl_messenger &sock, const yl_data_point &dp)
 	{
-		return sock.post_yl_dp(*this, dp);
+		if (!sock.request_post(*this, dp))
+		{
+			return false;
+		}
+		//wait for pending data, the value depends on ur network environment
+		delay(1000);
+		return sock.get_request_result();
 	}
 
 }

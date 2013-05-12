@@ -9,7 +9,7 @@ namespace yeelink
 	class yl_value_data_point : public yl_data_point
 	{
 	public:
-		yl_value_data_point(const String &key = String(), float value = 0.0f);
+		yl_value_data_point(float value = 0.0f, const String &key = String());
 
 		void set_value(float value);
 		float get_value() const;

@@ -3,7 +3,7 @@
 
 #include "yl_data_point.h"
 #include <WString.h>
-#include <Ethernet.h>
+#include <EthernetClient.h>
 
 namespace yeelink
 {
@@ -27,10 +27,14 @@ namespace yeelink
 		String& get_version();
 
 		bool connect_yl();
-		bool post_yl_dp(const yl_sensor &sensor, const yl_data_point &dp);
-
-	protected:
 		size_t send(const String &data);
+		bool recv_ln(String &data);
+		bool recv_ln_when(const String when, String &data);
+		bool request_post(const yl_sensor &sensor, const yl_data_point &dp);
+		bool get_request_result();
+		bool request_get(const yl_sensor &sensor, const String &key);
+		bool recv_get_data(String &data);
+		void flush_stop();
 
 	private:
 		String api_key_;

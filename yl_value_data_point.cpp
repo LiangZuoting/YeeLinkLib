@@ -3,7 +3,7 @@
 namespace yeelink
 {
 
-	yl_value_data_point::yl_value_data_point(const String &key /* = String */, float value /*= 0.0f*/)
+	yl_value_data_point::yl_value_data_point(float value /*= 0.0f*/, const String &key /* = String */)
 		: yl_data_point(key)
 		, value_(value)
 	{}
@@ -34,7 +34,6 @@ namespace yeelink
 		value += int(value_);
 		value += "}";
 		result += value;
-
 		return result;
 	}
 
