@@ -3,11 +3,10 @@
 
 #include "yl_device.h"
 
-class yl_messenger;
-class yl_data_point;
-
 namespace yeelink
 {
+	class yl_messenger;
+	class yl_data_point;
 	class yl_sensor
 	{
 	public:
