@@ -173,22 +173,7 @@ namespace yeelink
 #endif
 			return false;
 		}
-		String temp;
-		String content_length("content-length:");
-		if (!recv_ln_start_with(content_length, temp))
-		{
-			return false;
-		}
-		int length = 0;
-		int last_index = temp.indexOf("\r\n");
-		temp = temp.substring(0, last_index);
-		temp.trim();
-		length = temp.toInt();
-		if (length <= 0)
-		{
-			return false;
-		}
-		if (!recv_ln_start_with("\r\n", data))
+		if (!recv_ln_start_with("{", data))
 		{
 #ifdef YL_SERIAL_DEBUG
 			Serial.println("recv error : 193");
@@ -235,12 +220,16 @@ namespace yeelink
 
 	bool yl_messenger::recv_ln_start_with(const String start, String &data)
 	{
-		String temp, start_temp(start);
+		String start_temp(start);
 		start_temp.toLowerCase();
 		for (;;)
 		{
+			String temp;
 			if (!recv_ln(temp))
 			{
+#ifdef YL_SERIAL_DEBUG
+				Serial.println("read error : 245");
+#endif
 				return false;
 			}
 			temp.toLowerCase();
