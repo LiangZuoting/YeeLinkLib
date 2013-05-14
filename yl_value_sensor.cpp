@@ -11,9 +11,9 @@ namespace yeelink
 		: yl_sensor(id, d)
 	{}
 
-	bool yl_value_sensor::post_data_point(yl_messenger &sock, const yl_data_point &dp)
+	bool yl_value_sensor::post(yl_messenger &sock, const yl_data_point &dp, bool keep_alive)
 	{
-		if (!sock.request_post(*this, dp))
+		if (!sock.request_post(*this, dp, keep_alive))
 		{
 			return false;
 		}

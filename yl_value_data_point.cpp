@@ -31,7 +31,7 @@ namespace yeelink
 		} 
 		//"value":294.34}
 		String value("\"value\":");
-		value += int(value_);
+		value += int(value_ + 0.5f);
 		value += "}";
 		result += value;
 		return result;

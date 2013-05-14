@@ -80,13 +80,14 @@ namespace yeelink
 		return connect(&host_[0], 80);
 	}
 
-	bool yl_messenger::request_post(const yl_sensor &sensor, const yl_data_point &dp)
+	bool yl_messenger::request_post(const yl_sensor &sensor, const yl_data_point &dp, bool keep_alive)
 	{
 		String data = dp.to_string();
 		if (data.length() == 0)
 		{
 			return false;
 		}
+		String connection = keep_alive ? "\r\n" : "Connection:close\r\n\r\n";
 		String temp("POST /");
 		temp += version_;
 		temp += "/device/";
@@ -100,7 +101,8 @@ namespace yeelink
 			|| !send(api_key_)
 			|| !send("\r\nContent-Length:")
 			|| !println(data.length())
-			|| !send("Content-Type:application/x-www-form-urlencoded\r\nConnection:close\r\n\r\n")
+			|| !send("Content-Type:application/x-www-form-urlencoded\r\n")
+			|| !send(connection)
 			|| !send(data))
 		{
 #ifdef YL_SERIAL_DEBUG
@@ -130,7 +132,7 @@ namespace yeelink
 		return temp[0] == '2';
 	}
 
-	bool yl_messenger::request_get(const yl_sensor &sensor, const String &key)
+	bool yl_messenger::request_get(const yl_sensor &sensor, const String &key, bool keep_alive)
 	{
 		String temp("GET /");
 		temp += version_;
@@ -146,12 +148,13 @@ namespace yeelink
 #endif
 			return false;
 		}
+		String connection = keep_alive ? "\r\n\r\n" : "\r\nConnection:close\r\n\r\n";
 		if ((key.length() && !send(key))
 			|| !send(" HTTP/1.1\r\nHost:")
 			|| !send(host_)
 			|| !send("\r\nU-ApiKey:")
 			|| !send(api_key_)
-			|| !send("\r\nConnection:close\r\n\r\n"))
+			|| !send(connection))
 		{
 #ifdef YL_SERIAL_DEBUG
 			Serial.println("send error : 156");

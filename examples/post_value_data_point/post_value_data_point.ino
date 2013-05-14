@@ -15,7 +15,7 @@
 yeelink::yl_device ardu(2633);
 yeelink::yl_value_sensor therm(3539, &ardu);
 //replace first param value with ur u-apikey
-yeelink::yl_messenger messenger("your u-apikey here", "api.yeelink.net");
+yeelink::yl_messenger messenger("u-apikey", "api.yeelink.net");
 
 const int THERM_PIN	= 0;
 
@@ -36,6 +36,6 @@ void loop()
 	int v = analogRead(THERM_PIN);
         Serial.println(lm35_convertor(v));
 		yeelink::yl_value_data_point dp(lm35_convertor(v));
-	therm.easy_post_data_point(messenger, dp);
+		therm.single_post(messenger, dp);
 		delay(1000 * 30);
 }

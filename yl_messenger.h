@@ -27,9 +27,9 @@ namespace yeelink
 		String& get_version();
 
 		bool connect_yl();
-		bool request_post(const yl_sensor &sensor, const yl_data_point &dp);
+		bool request_post(const yl_sensor &sensor, const yl_data_point &dp, bool keep_alive);
 		bool get_request_result();
-		bool request_get(const yl_sensor &sensor, const String &key);
+		bool request_get(const yl_sensor &sensor, const String &key, bool keep_alive);
 		bool recv_get_data(String &data);
 		void flush_stop();
 

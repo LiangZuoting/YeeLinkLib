@@ -33,13 +33,13 @@ namespace yeelink
 		return device_;
 	}
 
-	bool yl_sensor::easy_post_data_point(yl_messenger &sock, const yl_data_point &dp)
+	bool yl_sensor::single_post(yl_messenger &sock, const yl_data_point &dp)
 	{
 		if (!sock.connect_yl())
 		{
 			return false;
 		}
-		bool ret = post_data_point(sock, dp);
+		bool ret = post(sock, dp, false);
 		sock.flush_stop();
 		return ret;
 	}

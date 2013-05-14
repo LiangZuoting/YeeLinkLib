@@ -17,10 +17,9 @@ namespace yeelink
 		int get_id() const;
 		void set_device(yl_device *dev);
 		yl_device * get_device() const;
-		virtual bool easy_post_data_point(yl_messenger &sock, const yl_data_point &dp);
 
-	private:
-		virtual bool post_data_point(yl_messenger &sock, const yl_data_point &dp) = 0;
+		virtual bool single_post(yl_messenger &sock, const yl_data_point &dp);
+		virtual bool post(yl_messenger &sock, const yl_data_point &dp, bool keep_alive) = 0;
 
 	protected:
 		int id_;
