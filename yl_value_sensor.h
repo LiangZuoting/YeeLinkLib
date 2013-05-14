@@ -13,6 +13,7 @@ namespace yeelink
 		yl_value_sensor(void);
 		yl_value_sensor(int id, yl_device *d);
 
+	private:
 		virtual bool post_data_point(yl_messenger &sock, const yl_data_point &dp);
 	};
 }
