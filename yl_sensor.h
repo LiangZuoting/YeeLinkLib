@@ -2,6 +2,7 @@
 #define ARDUINO_YEELINKLIB_SENSOR_H
 
 #include "yl_device.h"
+#include "yl_messenger.h"
 
 namespace yeelink
 {
@@ -18,6 +19,7 @@ namespace yeelink
 		void set_device(yl_device *dev);
 		yl_device * get_device() const;
 		virtual bool post_data_point(yl_messenger &sock, const yl_data_point &dp) = 0;
+		virtual bool easy_post_data_point(yl_messenger &sock, const yl_data_point &dp);
 
 	protected:
 		int id_;

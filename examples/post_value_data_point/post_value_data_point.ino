@@ -33,19 +33,9 @@ void setup()
 
 void loop()
 {
-	int v = 0;
-	if (!messenger.connect_yl())
-			{
-                              Serial.println("connect to yeelink failed !");
-			}
-			else
-			{
-                               Serial.println("connected.");
-			}
-		v = analogRead(THERM_PIN);
+	int v = analogRead(THERM_PIN);
         Serial.println(lm35_convertor(v));
 		yeelink::yl_value_data_point dp(lm35_convertor(v));
-		therm.post_data_point(messenger, dp);
-		messenger.flush_stop();
+	therm.easy_post_data_point(messenger, dp);
 		delay(1000 * 30);
 }

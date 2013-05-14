@@ -1,8 +1,8 @@
 #include "yl_value_sensor.h"
+#include "yl_messenger.h"
 
 namespace yeelink
 {
-
 	yl_value_sensor::yl_value_sensor(void)
 	{
 	}

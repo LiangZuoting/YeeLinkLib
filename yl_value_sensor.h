@@ -2,11 +2,11 @@
 #define ARDUINO_YEELINKLIB_VALUESENSOR_H
 
 #include "yl_sensor.h"
-#include "yl_messenger.h"
 #include "yl_data_point.h"
 
 namespace yeelink
 {
+	class yl_messenger;
 	class yl_value_sensor : public yl_sensor
 	{
 	public:
