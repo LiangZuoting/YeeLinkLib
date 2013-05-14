@@ -134,7 +134,7 @@ namespace yeelink
 	{
 		String temp("GET /");
 		temp += version_;
-		temp += "device/";
+		temp += "/device/";
 		if (!send(temp)
 			|| !print(sensor.get_device()->get_id())
 			|| !send("/sensor/")
@@ -172,7 +172,7 @@ namespace yeelink
 		}
 		String temp;
 		String content_length("content-length:");
-		if (!recv_ln_when(content_length, temp))
+		if (!recv_ln_start_with(content_length, temp))
 		{
 			return false;
 		}
@@ -185,7 +185,7 @@ namespace yeelink
 		{
 			return false;
 		}
-		if (!recv_ln_when("\r\n", data))
+		if (!recv_ln_start_with("\r\n", data))
 		{
 #ifdef YL_SERIAL_DEBUG
 			Serial.println("recv error : 193");
@@ -230,29 +230,25 @@ namespace yeelink
 		return true;
 	}
 
-	bool yl_messenger::recv_ln_when(const String when, String &data)
+	bool yl_messenger::recv_ln_start_with(const String start, String &data)
 	{
-		String temp, when_temp(when);
-		when_temp.toLowerCase();
+		String temp, start_temp(start);
+		start_temp.toLowerCase();
 		for (;;)
 		{
 			if (!recv_ln(temp))
 			{
 				return false;
 			}
-			if (temp == when)
+			temp.toLowerCase();
+			if (temp == start_temp)
 			{
 				return recv_ln(data);
 			}
-			for (int i=0; i<temp.length()-when.length()+1; ++i)
+			if (temp.substring(0, start_temp.length()) == start_temp)
 			{
-				String sub_str = temp.substring(i, when.length() + i);
-				sub_str.toLowerCase();
-				if (sub_str == when)
-				{
-					data = temp.substring(when.length() + i);
-					return true;
-				}
+				data = temp.substring(start_temp.length());
+				return true;
 			}
 		}
 		return false;
