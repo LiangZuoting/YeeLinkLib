@@ -16,6 +16,9 @@ namespace yeelink
 
 		virtual String to_string() const;
 
+	protected:
+		virtual bool from_string_get_value(const String &str);
+
 	private:
 		float value_;
 	};

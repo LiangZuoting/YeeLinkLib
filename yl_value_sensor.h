@@ -14,6 +14,7 @@ namespace yeelink
 		yl_value_sensor(int id, yl_device *d);
 
 		virtual bool post(yl_messenger &sock, const yl_data_point &dp, bool keep_alive);
+		virtual bool get(yl_messenger &sock, yl_data_point &dp, bool keep_alive);
 	};
 }
 
