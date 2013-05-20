@@ -58,6 +58,7 @@ namespace yeelink
 			return false;
 		}
 		value_ = atof(&value[0]);
+		return true;
 	}
 
 }

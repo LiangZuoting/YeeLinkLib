@@ -180,7 +180,7 @@ namespace yeelink
 #endif
 			return false;
 		}
-		return false;
+		return true;
 	}
 
 	bool yl_messenger::recv_ln(String &data)
