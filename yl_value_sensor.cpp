@@ -22,4 +22,19 @@ namespace yeelink
 		return sock.get_request_result();
 	}
 
+	bool yl_value_sensor::get(yl_messenger &sock, yl_data_point &dp, bool keep_alive)
+	{
+		if (!sock.request_get(*this, dp.get_key(), keep_alive))
+		{
+			return false;
+		}
+		delay(1000);
+		String data;
+		if (!sock.recv_get_data(data))
+		{
+			return false;
+		}
+		return dp.from_string(data);
+	}
+
 }

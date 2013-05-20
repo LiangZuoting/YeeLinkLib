@@ -44,4 +44,15 @@ namespace yeelink
 		return ret;
 	}
 
+	bool yl_sensor::single_get(yl_messenger &sock, yl_data_point &dp)
+	{
+		if (!sock.connect_yl())
+		{
+			return false;
+		}
+		bool ret = get(sock, dp, false);
+		sock.flush_stop();
+		return ret;
+	}
+
 }

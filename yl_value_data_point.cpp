@@ -37,5 +37,28 @@ namespace yeelink
 		return result;
 	}
 
+	bool yl_value_data_point::from_string_get_value(const String &str)
+	{
+		if (str.length() == 0)
+		{
+			return false;
+		}
+		String flag("\"value\":");
+		int start_index = str.indexOf(flag);
+		if (start_index < 0)
+		{
+			return false;
+		}
+		start_index += flag.length();
+		int end_index = str.indexOf('}', start_index);
+		String value = str.substring(start_index, end_index);
+		value.trim();
+		if (value.length() == 0)
+		{
+			return false;
+		}
+		value_ = atof(&value[0]);
+	}
+
 }
 
