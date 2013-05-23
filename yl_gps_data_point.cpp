@@ -56,7 +56,7 @@ namespace yeelink
 			key += "\",";
 			result += key;
 		} 
-		//"value":{"lat":123.2,"lng":34.34,"speed":50.0,"offset":true}}
+		//"value":{"lat":123.2,"lng":34.34,"speed":50.0,"offset":yes}}
 		String value("\"value\":{\"lat\":");
 		value += ftoa(loc_.lat, 2);
 		value += ",\"lng\":";
@@ -64,7 +64,7 @@ namespace yeelink
 		value += ",\"speed\":";
 		value += ftoa(speed_, 2);
 		value += ",\"offset\":";
-		value += (offset_ ? "true}" : "false}");
+		value += (offset_ ? "yes}" : "no}");
 		value += "}";
 		result += value;
 		return result;
@@ -93,7 +93,7 @@ namespace yeelink
 		speed_ = atof(&value[0]);
 		start_index = str.indexOf(",", start_index) + 1;
 		value = sub_string(str, start_index, "\"offset\":", "}");
-		offset_ = (value == "true" ? true : false);
+		offset_ = (value == "yes" ? true : false);
 		return true;
 	}
 
