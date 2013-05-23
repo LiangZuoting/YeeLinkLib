@@ -3,13 +3,13 @@
 #include <yl_device.h>
 #include <yl_messenger.h>
 #include <yl_value_data_point.h>
-#include <yl_value_sensor.h>
+#include <yl_sensor.h>
 
 //this example gets newest data point from yeelink
 
 //replace 2633 3539 with ur device id and sensor id
 yeelink::yl_device ardu(2633);
-yeelink::yl_value_sensor therm(3539, &ardu);
+yeelink::yl_sensor therm(3539, &ardu);
 //replace first param value with ur u-apikey
 yeelink::yl_messenger messenger("u-apikey", "api.yeelink.net");
 
