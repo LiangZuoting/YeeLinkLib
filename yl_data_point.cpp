@@ -64,7 +64,7 @@ namespace yeelink
 		result += i_part;
 
 		String temp;
-		resolution = min(resolution, 6);
+		resolution = (resolution <= 6 ? resolution : 6);
 		float min_val = 0.000001;
 		for (int i = 0; i < resolution && f_part >= min_val; ++i)
 		{
