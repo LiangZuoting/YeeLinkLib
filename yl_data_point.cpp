@@ -80,5 +80,23 @@ namespace yeelink
 		return result;
 	}
 
+	String yl_data_point::sub_string(const String &str, int from_index, const String &start_str, const String &end_str)
+	{
+		int start_index = str.indexOf(start_str, from_index);
+		if (start_index < 0)
+		{
+			return "";
+		}
+		start_index += start_str.length();
+		int end_index = str.indexOf(end_str, start_index);
+		String value = str.substring(start_index, end_index);
+		value.trim();
+		if (value.length() == 0)
+		{
+			return "";
+		}
+		return value;
+	}
+
 }
 

@@ -20,6 +20,7 @@ namespace yeelink
 		virtual bool from_string_get_key(const String &str);
 		virtual bool from_string_get_value(const String &str) = 0;
 		String ftoa(float val, char resolution) const;
+		String sub_string(const String &str, int from_index, const String &start_str, const String &end_str);
 
 	protected:
 		String key_;

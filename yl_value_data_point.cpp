@@ -43,20 +43,8 @@ namespace yeelink
 		{
 			return false;
 		}
-		String flag("\"value\":");
-		int start_index = str.indexOf(flag);
-		if (start_index < 0)
-		{
-			return false;
-		}
-		start_index += flag.length();
-		int end_index = str.indexOf('}', start_index);
-		String value = str.substring(start_index, end_index);
-		value.trim();
-		if (value.length() == 0)
-		{
-			return false;
-		}
+
+		String value = sub_string(str, 0, "\"value\":", "}");
 		value_ = atof(&value[0]);
 		return true;
 	}
