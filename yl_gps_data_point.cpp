@@ -64,7 +64,7 @@ namespace yeelink
 		value += ",\"speed\":";
 		value += ftoa(speed_, 2);
 		value += ",\"offset\":";
-		value += (offset_ ? "yes}" : "no}");
+		value += (offset_ ? "\"yes\"}" : "\"no\"}");
 		value += "}";
 		result += value;
 		return result;
