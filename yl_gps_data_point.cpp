@@ -45,19 +45,9 @@ namespace yeelink
 		return offset_;
 	}
 
-	String yl_gps_data_point::to_string() const
+	String yl_gps_data_point::value_to_string() const
 	{
-		String result("{");
-		if (key_.length() != 0)
-		{
-			//"timestamp":"2012-03-15T16:13:14",
-			String key("\"timestamp\":\"");
-			key += key_;
-			key += "\",";
-			result += key;
-		} 
-		//"value":{"lat":123.2,"lng":34.34,"speed":50.0,"offset":yes}}
-		String value("\"value\":{\"lat\":");
+		String value("{\"lat\":");
 		value += ftoa(loc_.lat, 2);
 		value += ",\"lng\":";
 		value += ftoa(loc_.lng, 2);
@@ -65,12 +55,10 @@ namespace yeelink
 		value += ftoa(speed_, 2);
 		value += ",\"offset\":";
 		value += (offset_ ? "\"yes\"}" : "\"no\"}");
-		value += "}";
-		result += value;
-		return result;
+		return value;
 	}
 
-	bool yl_gps_data_point::from_string_get_value(const String &str)
+	bool yl_gps_data_point::value_from_string(const String &str)
 	{
 		if (str.length() == 0)
 		{

@@ -14,12 +14,12 @@ public:
 	: yl_generic_data_point(key)
 	{}
 
-	virtual String to_string_value() const
+	virtual String value_to_string() const
 	{
 		return "\"name\":\"" + name_ + "\",\"age\":" + String(age_) + ",\"sex\":\"" + sex_ + "\"";
 	}
 
-	virtual bool from_string_get_value(const String &str)
+	virtual bool value_from_string(const String &str)
 	{
 		name_ = sub_string(str, 0, "\"name\":\"", "\",");
 		age_ = sub_string(str, 0, "\"age\":\"", ",").toInt();

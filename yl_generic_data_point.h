@@ -11,11 +11,9 @@ namespace yeelink
 	public:
 		yl_generic_data_point(const String &key);
 
-		virtual String to_string() const;
-
 	protected:
-		virtual String to_string_value() const = 0;
-		virtual bool from_string_get_key(const String &str);
+		virtual String key_to_string() const;
+		virtual bool key_from_string(const String &str);
 
 	};
 

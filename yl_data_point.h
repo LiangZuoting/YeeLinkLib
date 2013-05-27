@@ -13,12 +13,14 @@ namespace yeelink
 
 		void set_key(const String &key);
 		const String& get_key() const;
-		virtual String to_string() const = 0;
+		virtual String to_string() const;
 		virtual bool from_string(const String &str);
 
 	protected:
-		virtual bool from_string_get_key(const String &str);
-		virtual bool from_string_get_value(const String &str) = 0;
+		virtual	String key_to_string() const;
+		virtual String value_to_string() const = 0;
+		virtual bool key_from_string(const String &str);
+		virtual bool value_from_string(const String &str) = 0;
 		String ftoa(float val, char resolution) const;
 		String sub_string(const String &str, int from_index, const String &start_str, const String &end_str);
 

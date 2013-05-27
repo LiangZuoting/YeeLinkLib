@@ -14,10 +14,9 @@ namespace yeelink
 		void set_value(float value);
 		float get_value() const;
 
-		virtual String to_string() const;
-
 	protected:
-		virtual bool from_string_get_value(const String &str);
+		virtual String value_to_string() const;
+		virtual bool value_from_string(const String &str);
 
 	private:
 		float value_;

@@ -18,26 +18,12 @@ namespace yeelink
 		return value_;
 	}
 
-	String yl_value_data_point::to_string() const
+	String yl_value_data_point::value_to_string() const
 	{
-		String result("{");
-		if (key_.length() != 0)
-		{
-			//"timestamp":"2012-03-15T16:13:14",
-			String key("\"timestamp\":\"");
-			key += key_;
-			key += "\",";
-			result += key;
-		} 
-		//"value":294.34}
-		String value("\"value\":");
-		value += ftoa(value_, 2);
-		value += "}";
-		result += value;
-		return result;
+		return ftoa(value_, 2);
 	}
 
-	bool yl_value_data_point::from_string_get_value(const String &str)
+	bool yl_value_data_point::value_from_string(const String &str)
 	{
 		if (str.length() == 0)
 		{

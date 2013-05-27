@@ -17,24 +17,52 @@ namespace yeelink
 		return key_;
 	}
 
+	String yl_data_point::to_string() const
+	{
+		String result("{");
+		String key = key_to_string();
+		if (key.length())
+		{
+			result += key;
+			result += ",";
+		}
+		result += "\"value\":";
+		result += value_to_string();
+		result += "}";
+
+		return result;
+	}
+
+	String yl_data_point::key_to_string() const
+	{
+		if (key_.length())
+		{
+			String key("\"timestamp\":\"");
+			key += key_;
+			key += "\"";
+			return key;
+		}
+		return "";
+	}
+
 	bool yl_data_point::from_string(const String &str)
 	{
-		if (!from_string_get_key(str)
-			|| !from_string_get_value(str))
+		if (!key_from_string(str)
+			|| !value_from_string(str))
 		{
 			return false;
 		}
 		return true;
 	}
 
-	bool yl_data_point::from_string_get_key(const String &str)
+	bool yl_data_point::key_from_string(const String &str)
 	{
 		if (str.length() == 0)
 		{
 			return true;
 		}
 
-		key_ = sub_string(str, 0, "\"timestamp\":", ",");
+		key_ = sub_string(str, 0, "\"timestamp\":\"", "\",");
 		return key_.length();
 	}
 

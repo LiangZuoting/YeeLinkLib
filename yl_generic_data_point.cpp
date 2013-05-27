@@ -7,26 +7,19 @@ namespace yeelink
 		: yl_data_point(key)
 	{}
 
-	String yl_generic_data_point::to_string() const
+	String yl_generic_data_point::key_to_string() const
 	{
-		//"key":"cantacts",
-		//"value":{"name":"qinqingege","age":26,"sex":"male"}}
-		String result("{\"key\":\"");
-		result += key_;
-		result += "\",\"value\":{";
-		result += to_string_value();
-		result += "}}";
-		return result;
+		return "\"key\":\"" + key_ + "\"";
 	}
 
-	bool yl_generic_data_point::from_string_get_key(const String &str)
+	bool yl_generic_data_point::key_from_string(const String &str)
 	{
 		if (str.length() == 0)
 		{
 			return false;
 		}
 
-		key_ = sub_string(str, 0, "\"key\":", ",");
+		key_ = sub_string(str, 0, "\"key\":\"", "\",");
 		return key_.length();
 	}
 
