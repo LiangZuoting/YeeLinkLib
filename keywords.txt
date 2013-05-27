@@ -10,6 +10,7 @@ yl_data_point 	KEYWORD3
 yl_value_data_point 	KEYWORD3
 yl_value_sensor		KEYWORD3
 yl_messenger 	KEYWORD3
+yl_generic_data_point	KEYWORD3
 
 #######################################
 # namespace

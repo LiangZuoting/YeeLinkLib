@@ -92,7 +92,7 @@ namespace yeelink
 		}
 		speed_ = atof(&value[0]);
 		start_index = str.indexOf(",", start_index) + 1;
-		value = sub_string(str, start_index, "\"offset\":", "}");
+		value = sub_string(str, start_index, "\"offset\":\"", "\"}");
 		offset_ = (value == "yes" ? true : false);
 		return true;
 	}
