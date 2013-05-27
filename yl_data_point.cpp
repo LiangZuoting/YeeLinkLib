@@ -33,17 +33,9 @@ namespace yeelink
 		{
 			return true;
 		}
-		String flag("\"timestamp\":");
-		int start_index = str.indexOf(flag);
-		if (start_index < 0)
-		{
-			return true;
-		}
-		start_index += flag.length();
-		int end_index = str.indexOf(',', start_index);
-		key_ = str.substring(start_index, end_index);
-		key_.trim();
-		return true;
+
+		key_ = sub_string(str, 0, "\"timestamp\":", ",");
+		return key_.length();
 	}
 
 	String yl_data_point::ftoa(float val, char resolution) const
