@@ -38,7 +38,7 @@ public:
 yeelink::yl_device ardu(2633);
 yeelink::yl_sensor generic(4013, &ardu);
 //replace first param value with ur u-apikey
-yeelink::yl_messenger messenger("u-apikey", "api.yeelink.net");
+yeelink::yl_messenger messenger("ur u-apikey", "api.yeelink.net");
 personal_info_dp qinqingege("personal_info");
 
 void setup()
@@ -47,13 +47,16 @@ void setup()
 	byte mac[] = {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xAA};
 	Ethernet.begin(mac);
 
-	qinqingege.name_ = "qinqingege";
-	qinqingege.age_ = 26;
-	qinqingege.sex_ = "male";
+//	qinqingege.name_ = "qinqingege";
+//	qinqingege.age_ = 26;
+//	qinqingege.sex_ = "male";
 }
 
 void loop()
 {
-		generic.single_post(messenger, qinqingege);
+		generic.single_get(messenger, qinqingege);
+		Serial.println(qinqingege.name_);
+		Serial.println(qinqingege.age_);
+		Serial.println(qinqingege.sex_);
 		delay(1000 * 30);
 }
