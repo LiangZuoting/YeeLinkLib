@@ -3,8 +3,6 @@
 
 //#define YL_SERIAL_DEBUG
 
-namespace yeelink
-{
 #define YEELINK_VERSION ("v1.0")
 
 	yl_messenger::yl_messenger()
@@ -262,5 +260,4 @@ namespace yeelink
 		char *c = &temp[0];
 		return write((uint8_t*)c, temp.length());
 	}
-}
 

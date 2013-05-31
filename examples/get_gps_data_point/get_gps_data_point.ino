@@ -9,10 +9,10 @@
 #include <yl_sensor.h>
 
 //replace 2633 3539 with ur device id and sensor id
-yeelink::yl_device ardu(2633);
-yeelink::yl_sensor gps(3539, &ardu);
+yl_device ardu(2633);
+yl_sensor gps(3539, &ardu);
 //replace first param value with ur u-apikey
-yeelink::yl_messenger messenger("ur u-apikey here", "api.yeelink.net");
+yl_messenger messenger("ur u-apikey here", "api.yeelink.net");
 
 
 void setup()
@@ -24,7 +24,7 @@ void setup()
 
 void loop()
 {
-	yeelink::yl_gps_data_point dp;
+	yl_gps_data_point dp;
 	gps.single_get(messenger, dp);
 	Serial.print("lat:");
 	Serial.print(dp.get_location().lat);

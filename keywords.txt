@@ -4,20 +4,13 @@
 # Class
 #######################################
 
-yl_device	KEYWORD3
-yl_sensor 	KEYWORD3
-yl_data_point 	KEYWORD3
-yl_value_data_point 	KEYWORD3
-yl_value_sensor		KEYWORD3
-yl_messenger 	KEYWORD3
-yl_generic_data_point	KEYWORD3
-
-#######################################
-# namespace
-#######################################
-
-yeelink KEYWORD1
-arduino KEYWORD1
+yl_device	KEYWORD1
+yl_sensor 	KEYWORD1
+yl_data_point	KEYWORD1
+yl_gps_data_point	KEYWORD1
+yl_value_data_point	KEYWORD1
+yl_messenger	KEYWORD1
+yl_generic_data_point	KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)

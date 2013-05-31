@@ -3,25 +3,20 @@
 
 #include "yl_data_point.h"
 
-namespace yeelink
+class yl_value_data_point : public yl_data_point
 {
+public:
+	yl_value_data_point(float value = 0.0f, const String &key = String());
 
-	class yl_value_data_point : public yl_data_point
-	{
-	public:
-		yl_value_data_point(float value = 0.0f, const String &key = String());
+	void set_value(float value);
+	float get_value() const;
 
-		void set_value(float value);
-		float get_value() const;
+protected:
+	virtual String value_to_string() const;
+	virtual bool value_from_string(const String &str);
 
-	protected:
-		virtual String value_to_string() const;
-		virtual bool value_from_string(const String &str);
-
-	private:
-		float value_;
-	};
-
-}
+private:
+	float value_;
+};
 
 #endif

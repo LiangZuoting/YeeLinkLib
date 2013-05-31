@@ -7,7 +7,7 @@
 #include <yl_sensor.h>
 #include <yl_generic_data_point.h>
 
-class personal_info_dp : public yeelink::yl_generic_data_point
+class personal_info_dp : public yl_generic_data_point
 {
 public:
 	personal_info_dp(const String &key)
@@ -35,10 +35,10 @@ public:
 };
 
 //replace 2633 3539 with ur device id and sensor id
-yeelink::yl_device ardu(2633);
-yeelink::yl_sensor generic(4013, &ardu);
+yl_device ardu(2633);
+yl_sensor generic(4013, &ardu);
 //replace first param value with ur u-apikey
-yeelink::yl_messenger messenger("u-apikey", "api.yeelink.net");
+yl_messenger messenger("u-apikey", "api.yeelink.net");
 personal_info_dp qinqingege("personal_info");
 
 void setup()

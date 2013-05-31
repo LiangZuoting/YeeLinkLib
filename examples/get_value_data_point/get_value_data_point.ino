@@ -8,10 +8,10 @@
 //this example gets newest data point from yeelink
 
 //replace 2633 3539 with ur device id and sensor id
-yeelink::yl_device ardu(2633);
-yeelink::yl_sensor therm(3539, &ardu);
+yl_device ardu(2633);
+yl_sensor therm(3539, &ardu);
 //replace first param value with ur u-apikey
-yeelink::yl_messenger messenger("u-apikey", "api.yeelink.net");
+yl_messenger messenger("u-apikey", "api.yeelink.net");
 
 void setup()
 {
@@ -22,7 +22,7 @@ void setup()
 
 void loop()
 {
-  yeelink::yl_value_data_point dp;
+  yl_value_data_point dp;
   therm.single_get(messenger, dp);
         Serial.println(dp.get_value());
 }
