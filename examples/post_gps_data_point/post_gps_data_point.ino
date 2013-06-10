@@ -1,9 +1,10 @@
 #include <Ethernet.h>
+#include <WiFi.h>
 #include <SPI.h>
-#include <http_client.h>
 #include <yl_data_point.h>
 #include <yl_device.h>
 #include <yl_w5100_client.h>
+#include <yl_wifi_client.h>
 #include <yl_messenger.h>
 #include <yl_sensor.h>
 #include <yl_gps_data_point.h>

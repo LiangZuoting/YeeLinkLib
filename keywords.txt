@@ -12,6 +12,7 @@ yl_value_data_point	KEYWORD1
 yl_messenger	KEYWORD1
 yl_generic_data_point	KEYWORD1
 yl_w5100_client	KEYWORD1
+yl_wifi_client	KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)

@@ -57,4 +57,3 @@ void yl_w5100_client::stop()
 {
 	client_.stop();
 }
-
