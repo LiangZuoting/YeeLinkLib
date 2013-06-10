@@ -1,5 +1,6 @@
 #include "yl_sensor.h"
 #include "yl_messenger.h"
+#include <arduino.h>
 
 yl_sensor::yl_sensor(void)
 : id_(0), device_(0)

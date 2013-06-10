@@ -1,6 +1,7 @@
 #include <Ethernet.h>
 #include <SPI.h>
 #include <yl_device.h>
+#include <yl_w5100_client.h>
 #include <yl_messenger.h>
 #include <yl_value_data_point.h>
 #include <yl_sensor.h>
@@ -11,7 +12,8 @@
 yl_device ardu(2633);
 yl_sensor therm(3539, &ardu);
 //replace first param value with ur u-apikey
-yl_messenger messenger("u-apikey", "api.yeelink.net");
+yl_w5100_client client;
+yl_messenger messenger(&client, "u-apikey", "api.yeelink.net");
 
 void setup()
 {

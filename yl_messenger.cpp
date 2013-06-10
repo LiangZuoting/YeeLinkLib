@@ -1,5 +1,6 @@
 #include "yl_messenger.h"
 #include "yl_sensor.h"
+#include "yl_tcp_client.h"
 
 //#define YL_SERIAL_DEBUG
 
@@ -7,25 +8,26 @@
 
 	yl_messenger::yl_messenger()
 		: version_(YEELINK_VERSION)
+		, client_(NULL)
 	{}
 
-	yl_messenger::yl_messenger(uint8_t sock)
-		: EthernetClient(sock)
-		, version_(YEELINK_VERSION)
+	yl_messenger::yl_messenger(yl_tcp_client *client)
+		: version_(YEELINK_VERSION)
+		, client_(client)
 	{}
 
 	yl_messenger::yl_messenger(const String &api_key, const String &host)
-		: EthernetClient()
-		, api_key_(api_key)
+		: api_key_(api_key)
 		, host_(host)
 		, version_(YEELINK_VERSION)
+		, client_(NULL)
 	{}
 
-	yl_messenger::yl_messenger(uint8_t sock, const String &api_key, const String &host)
-		: EthernetClient(sock)
-		, api_key_(api_key)
+	yl_messenger::yl_messenger(yl_tcp_client *client, const String &api_key, const String &host)
+		: api_key_(api_key)
 		, host_(host)
 		, version_(YEELINK_VERSION)
+		, client_(client)
 	{}
 
 	void yl_messenger::set_api_key(const String &api_key)
@@ -73,9 +75,24 @@
 		return get_version();
 	}
 
+	void yl_messenger::set_tcp_client(yl_tcp_client *client)
+	{
+		client_ = client;
+	}
+
+	const yl_tcp_client* yl_messenger::get_tcp_client() const
+	{
+		return client_;
+	}
+
+	yl_tcp_client* yl_messenger::get_tcp_client()
+	{
+		return get_tcp_client();
+	}
+
 	bool yl_messenger::connect_yl()
 	{
-		return connect(&host_[0], 80);
+		return client_->connect(&host_[0], 80);
 	}
 
 	bool yl_messenger::request_post(const yl_sensor &sensor, const yl_data_point &dp, bool keep_alive)
@@ -89,19 +106,19 @@
 		String temp("POST /");
 		temp += version_;
 		temp += "/device/";
-		if (!send(temp)
-			|| !print(sensor.get_device()->get_id())
-			|| !send("/sensor/") 
-			|| !print(sensor.get_id())
-			|| !send("/datapoints HTTP/1.1\r\nHost:")
-			|| !send(host_)
-			|| !send("\r\nAccept:*/*\r\nU-ApiKey:")
-			|| !send(api_key_)
-			|| !send("\r\nContent-Length:")
-			|| !println(data.length())
-			|| !send("Content-Type:application/x-www-form-urlencoded\r\n")
-			|| !send(connection)
-			|| !send(data))
+		if (!client_->send(temp)
+			|| !client_->send(sensor.get_device()->get_id())
+			|| !client_->send("/sensor/") 
+			|| !client_->send(sensor.get_id())
+			|| !client_->send("/datapoints HTTP/1.1\r\nHost:")
+			|| !client_->send(host_)
+			|| !client_->send("\r\nAccept:*/*\r\nU-ApiKey:")
+			|| !client_->send(api_key_)
+			|| !client_->send("\r\nContent-Length:")
+			|| !client_->send_ln(data.length())
+			|| !client_->send("Content-Type:application/x-www-form-urlencoded\r\n")
+			|| !client_->send(connection)
+			|| !client_->send(data))
 		{
 #ifdef YL_SERIAL_DEBUG
 			Serial.println("send error : 108");
@@ -135,11 +152,11 @@
 		String temp("GET /");
 		temp += version_;
 		temp += "/device/";
-		if (!send(temp)
-			|| !print(sensor.get_device()->get_id())
-			|| !send("/sensor/")
-			|| !print(sensor.get_id())
-			|| !send("/datapoints/"))
+		if (!client_->send(temp)
+			|| !client_->send(sensor.get_device()->get_id())
+			|| !client_->send("/sensor/")
+			|| !client_->send(sensor.get_id())
+			|| !client_->send("/datapoints/"))
 		{
 #ifdef YL_SERIAL_DEBUG
 			Serial.println("send error : 144");
@@ -147,12 +164,12 @@
 			return false;
 		}
 		String connection = keep_alive ? "\r\n\r\n" : "\r\nConnection:close\r\n\r\n";
-		if ((key.length() && !send(key))
-			|| !send(" HTTP/1.1\r\nHost:")
-			|| !send(host_)
-			|| !send("\r\nU-ApiKey:")
-			|| !send(api_key_)
-			|| !send(connection))
+		if ((key.length() && !client_->send(key))
+			|| !client_->send(" HTTP/1.1\r\nHost:")
+			|| !client_->send(host_)
+			|| !client_->send("\r\nU-ApiKey:")
+			|| !client_->send(api_key_)
+			|| !client_->send(connection))
 		{
 #ifdef YL_SERIAL_DEBUG
 			Serial.println("send error : 156");
@@ -186,7 +203,7 @@
 		int result = 0;
 		for (uint8_t step=0;step < 2;)
 		{
-			if ((result = read()) <= 0) 
+			if ((result = client_->recv()) <= 0) 
 			{
 #ifdef YL_SERIAL_DEBUG
 				Serial.println("read error : 190");
@@ -246,18 +263,6 @@
 
 	void yl_messenger::flush_stop()
 	{
-		flush();
-		stop();
+		client_->flush();
+		client_->stop();
 	}
-
-	size_t yl_messenger::send(const String &data)
-	{
-		if (data.length() == 0)
-		{
-			return 0;
-		}
-		String temp(data);
-		char *c = &temp[0];
-		return write((uint8_t*)c, temp.length());
-	}
-

@@ -3,16 +3,16 @@
 
 #include "yl_data_point.h"
 #include <WString.h>
-#include <EthernetClient.h>
 
 class yl_sensor;
-class yl_messenger : public EthernetClient
+class yl_tcp_client;
+class yl_messenger
 {
 public:
 	yl_messenger();
-	yl_messenger(uint8_t sock);
+	yl_messenger(yl_tcp_client *client);
 	yl_messenger(const String &api_key, const String &host);
-	yl_messenger(uint8_t sock, const String &api_key, const String &host);
+	yl_messenger(yl_tcp_client *client, const String &api_key, const String &host);
 
 	void set_api_key(const String &api_key);
 	const String& get_api_key() const;
@@ -23,6 +23,9 @@ public:
 	void set_version(const String &version);
 	const String& get_version() const;
 	String& get_version();
+	void set_tcp_client(yl_tcp_client *client);
+	const yl_tcp_client* get_tcp_client() const;
+	yl_tcp_client* get_tcp_client();
 
 	bool connect_yl();
 	bool request_post(const yl_sensor &sensor, const yl_data_point &dp, bool keep_alive);
@@ -32,7 +35,6 @@ public:
 	void flush_stop();
 
 protected:
-	size_t send(const String &data);
 	bool recv_ln(String &data);
 	bool recv_ln_start_with(const String start, String &data);
 
@@ -40,6 +42,7 @@ private:
 	String api_key_;
 	String host_;
 	String version_;
+	yl_tcp_client *client_;
 };
 
 #endif
