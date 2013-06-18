@@ -42,7 +42,7 @@
 
 	String& yl_messenger::get_api_key()
 	{
-		return get_api_key();
+		return api_key_;
 	}
 
 	void yl_messenger::set_host(const String &host)
@@ -57,7 +57,7 @@
 
 	String& yl_messenger::get_host()
 	{
-		return get_host();
+		return host_;
 	}
 
 	void yl_messenger::set_version(const String &version)
@@ -72,7 +72,7 @@
 
 	String& yl_messenger::get_version()
 	{
-		return get_version();
+		return version_;
 	}
 
 	void yl_messenger::set_tcp_client(yl_tcp_client *client)
@@ -87,7 +87,7 @@
 
 	yl_tcp_client* yl_messenger::get_tcp_client()
 	{
-		return get_tcp_client();
+		return client_;
 	}
 
 	bool yl_messenger::connect_yl()
